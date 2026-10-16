@@ -1,8 +1,5 @@
 # Development Environment
 
----
-# Development Environment
-
 Antes de comenzar a instalar Runtimes, Package Managers, configurar proyectos o automatizar procesos, necesitamos comprender **cómo funciona el entorno donde desarrollamos software**.
 
 Cada vez que abrimos un editor, ejecutamos un comando, instalamos una herramienta o iniciamos una aplicación, estamos interactuando con diferentes componentes de nuestro sistema.
