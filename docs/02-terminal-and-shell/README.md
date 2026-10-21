@@ -1,210 +1,167 @@
 # Terminal and Shell
 
-Antes de comenzar a utilizar herramientas como Git, Node.js, npm, pnpm, Docker o Nx, necesitamos comprender uno de los mecanismos fundamentales de nuestro entorno de desarrollo: **la interacción con el sistema operativo mediante una interfaz de línea de comandos**.
-
-Cada vez que ejecutamos un comando, navegamos por directorios, iniciamos un servidor o automatizamos una tarea, estamos utilizando diferentes componentes que trabajan conjuntamente.
-
-Entre ellos encontramos:
-
-- Terminal.
-- Shell.
-- Commands.
-- Executables.
-- Processes.
-- File System.
-- Environment Variables.
-- Standard Streams.
-
-Aunque utilizamos estos conceptos diariamente, no todos representan lo mismo.
-
-Este módulo construye los fundamentos necesarios para comprender y dominar **Terminal and Shell**, desde las operaciones más básicas hasta la creación de pequeños Scripts y flujos de trabajo profesionales.
-
-Nuestro objetivo no será memorizar cientos de comandos.
-
-**Queremos comprender cómo funciona la línea de comandos, cómo se relaciona con el sistema operativo y cómo utilizarla para resolver problemas reales de ingeniería de software.**
+> **Developer Tooling Mastery 2026 — Module 02**
+>
+> Comprende cómo funciona la línea de comandos, aprende a interactuar con el sistema operativo y desarrolla las habilidades necesarias para trabajar profesionalmente con herramientas de desarrollo.
 
 ---
 
-## 🎯 Objetivo
+## 1. Introducción
 
-Al finalizar este módulo deberías poder explicar y demostrar:
+La terminal es una de las herramientas más importantes en el trabajo cotidiano de un ingeniero de software.
 
-- Qué es una Command-Line Interface (CLI).
-- Qué diferencia existe entre Terminal, Shell y Command.
-- Qué sucede cuando escribimos y ejecutamos un comando.
-- Qué son los Shells y por qué existen diferentes implementaciones.
-- Qué diferencias principales existen entre Bash, Zsh y PowerShell.
-- Cómo navegar por el File System desde la línea de comandos.
-- Qué son las rutas absolutas y relativas.
-- Cómo crear, inspeccionar, copiar, mover y eliminar archivos de forma segura.
-- Cómo funcionan los argumentos y las opciones de un comando.
-- Cómo descubrir la ayuda y documentación de una herramienta.
-- Qué son Standard Input, Standard Output y Standard Error.
-- Cómo funcionan Pipes y Redirections.
-- Qué son las variables del Shell y las Environment Variables.
-- Cómo funciona `PATH` en la resolución de ejecutables.
-- Qué son los procesos y cómo inspeccionarlos.
-- Qué representan los Exit Codes.
-- Qué son los permisos y cómo afectan la ejecución de archivos.
-- Cómo combinar comandos para construir flujos de trabajo.
-- Qué es Shell Scripting y cuándo resulta útil.
-- Cómo escribir Scripts básicos y comprensibles.
-- Cómo diagnosticar problemas habituales de Terminal y Shell.
-- Qué prácticas ayudan a trabajar de manera segura, eficiente y reproducible.
+La utilizamos constantemente para:
 
-El objetivo final será desarrollar **autonomía técnica en la línea de comandos**, tanto para el desarrollo cotidiano como para los módulos posteriores de nuestro Mastery.
+- Navegar por directorios.
+- Consultar y modificar archivos.
+- Ejecutar aplicaciones.
+- Instalar dependencias.
+- Trabajar con Git.
+- Configurar herramientas.
+- Iniciar servidores.
+- Inspeccionar procesos.
+- Diagnosticar errores.
+- Automatizar tareas.
 
----
+Sin embargo, ejecutar comandos no significa necesariamente comprender cómo funcionan.
 
-## 🧠 ¿Por qué estudiar Terminal and Shell?
-
-Imagina que acabamos de clonar un proyecto JavaScript.
-
-La documentación indica:
+Por ejemplo:
 
 ```bash
-pnpm install
+npm install
+```
+
+```bash
+npm run dev
+```
+
+```bash
+git status
+```
+
+Aunque estos comandos parecen sencillos, detrás de su ejecución intervienen diferentes conceptos:
+
+- **Terminal:** interfaz donde interactuamos con programas de línea de comandos.
+- **Shell:** programa que interpreta las instrucciones que escribimos.
+- **CLI:** interfaz que permite controlar una herramienta mediante comandos.
+- **Executable:** programa que puede ejecutar el sistema operativo.
+- **Process:** instancia de un programa en ejecución.
+- **Environment Variables:** valores de configuración disponibles para determinados procesos.
+- **PATH:** variable que participa en la búsqueda de ejecutables.
+- **Exit Code:** valor que indica cómo terminó una operación.
+
+Nuestro objetivo será comprender estos conceptos y aprender a utilizarlos correctamente.
+
+**No queremos memorizar comandos sin entenderlos. Queremos desarrollar autonomía para trabajar, investigar y resolver problemas desde la terminal.**
+
+---
+
+## 2. Objetivos de aprendizaje
+
+Al finalizar este módulo deberías ser capaz de:
+
+1. Diferenciar Terminal, Shell y CLI.
+2. Comprender qué ocurre cuando ejecutamos un comando.
+3. Identificar los principales Shells utilizados en desarrollo.
+4. Navegar por el sistema de archivos.
+5. Diferenciar rutas absolutas y relativas.
+6. Crear, copiar, mover, inspeccionar y eliminar archivos de forma segura.
+7. Comprender argumentos, opciones y comandos.
+8. Consultar la ayuda de herramientas CLI.
+9. Comprender las variables de entorno.
+10. Explicar cómo funciona `PATH`.
+11. Identificar los archivos de configuración del Shell.
+12. Comprender qué son los Alias y para qué sirven.
+13. Identificar procesos y puertos.
+14. Comprender Pipes, Redirections y Command Chaining.
+15. Reconocer diferencias entre macOS, Linux y Windows.
+16. Diagnosticar problemas habituales de Terminal.
+17. Utilizar la terminal con mayor seguridad y productividad.
+18. Prepararte para trabajar con Node.js, gestores de paquetes y herramientas de desarrollo.
+
+---
+
+## 3. ¿Por qué es importante dominar Terminal and Shell?
+
+Imagina que ejecutas:
+
+```bash
 pnpm dev
 ```
 
-Ejecutamos el segundo comando y aparece:
+Y recibes el siguiente error:
 
 ```text
 Error: Port 3000 is already in use
 ```
 
-¿Qué significa?
+Un desarrollador que desconoce cómo funcionan los procesos podría intentar reinstalar las dependencias o reiniciar la computadora.
 
-Podríamos intentar reiniciar la computadora, cambiar el puerto o volver a instalar dependencias.
+Sin embargo, el problema podría ser simplemente que otro proceso está utilizando ese puerto.
 
-Pero ninguna de esas acciones identifica necesariamente el problema.
+Para investigarlo necesitamos comprender:
 
-Un desarrollador que comprende Terminal and Shell puede comenzar investigando:
-
-1. Qué proceso está utilizando el puerto.
-2. Qué aplicación inició ese proceso.
-3. Si el proceso sigue siendo necesario.
-4. Si corresponde detenerlo o modificar la configuración.
-5. Cómo comprobar que el problema se ha resuelto.
+- Qué es un proceso.
+- Qué es un puerto.
+- Cómo identificar procesos activos.
+- Cómo determinar qué aplicación utiliza un puerto.
+- Cuándo corresponde detener un proceso.
 
 Otro ejemplo:
 
 ```text
-Permission denied
+command not found: node
 ```
 
-Este error podría estar relacionado con permisos del archivo, permisos de los directorios, un ejecutable no autorizado o restricciones del sistema.
+Este error podría indicar que:
 
-La solución no debería ser ejecutar cualquier comando con privilegios de administrador.
+- Node.js no está instalado.
+- El ejecutable no está disponible en `PATH`.
+- El Shell no ha cargado la configuración esperada.
+- Estamos utilizando un entorno diferente.
+- Existe un problema con el gestor de versiones.
 
-Necesitamos comprender qué está ocurriendo.
+Sin comprender Terminal and Shell, podríamos aplicar soluciones incorrectas.
 
-### Nuestro enfoque
+### Modelo de resolución
 
 ```text
-Problem
-   ↓
-Understand the Error
-   ↓
+Error
+  │
+  ▼
+Understand the Message
+  │
+  ▼
 Identify the Responsible Component
-   ↓
+  │
+  ▼
 Inspect the Environment
-   ↓
-Choose a Safe Action
-   ↓
+  │
+  ▼
+Choose an Appropriate Solution
+  │
+  ▼
 Validate the Result
 ```
 
-La terminal no es solamente un lugar donde copiamos comandos.
-
-Es una interfaz que nos permite **observar, controlar y automatizar operaciones del sistema**.
+**Dominar la terminal significa comprender lo que estamos ejecutando y saber investigar cuando algo no funciona.**
 
 ---
 
-## 🧩 Primero los conceptos, después los comandos
+## 4. Modelo mental: cómo funciona la terminal
 
-Mantendremos el principio fundamental de nuestro Developer Tooling Mastery:
-
-```text
-Problem
-   ↓
-Concept
-   ↓
-Responsibility
-   ↓
-Tool
-   ↓
-Configuration
-   ↓
-Practice
-   ↓
-Integration
-   ↓
-Standardization
-```
-
-Por ejemplo, antes de aprender:
-
-```bash
-ls -la
-```
-
-Necesitamos comprender:
-
-- Qué es un directorio.
-- Qué significa listar archivos.
-- Qué son los archivos ocultos.
-- Qué información representan los permisos.
-- Qué responsabilidad tiene el comando `ls`.
-
-Antes de aprender:
-
-```bash
-command-a | command-b
-```
-
-Necesitamos comprender:
-
-- Qué es un proceso.
-- Qué es Standard Output.
-- Qué es Standard Input.
-- Cómo funciona un Pipe.
-- Por qué algunos comandos pueden combinarse.
-
-Y antes de crear un Script, necesitamos entender:
-
-- Qué comandos ejecutará.
-- En qué orden.
-- Qué entradas necesita.
-- Qué modificaciones realizará.
-- Cómo comunicará los errores.
-
-**No aprenderemos comandos aislados. Aprenderemos los mecanismos que permiten utilizarlos correctamente.**
-
----
-
-## 🏗️ ¿Qué sucede cuando ejecutamos un comando?
-
-Consideremos una operación sencilla:
-
-```bash
-git --version
-```
-
-Desde nuestra perspectiva, escribimos un comando y obtenemos una respuesta.
-
-Pero intervienen diferentes componentes.
+Cuando escribimos un comando, intervienen diferentes componentes.
 
 ```text
 Developer
     │
     ▼
-Terminal Emulator
+Terminal
     │
     ▼
 Shell
     │
-    ├── Parse Command
+    ├── Interpret Command
     │
     ├── Resolve Command
     │
@@ -217,92 +174,31 @@ Operating System
 Executable / Process
     │
     ▼
-Output and Exit Status
+Output / Exit Status
     │
     ▼
-Terminal Display
+Terminal
 ```
 
-Este es un modelo conceptual simplificado.
+Este modelo es una simplificación.
 
-No todos los comandos necesitan iniciar un ejecutable externo: algunos son funciones, alias o comandos internos del Shell.
+Algunos comandos son internos del Shell y no necesitan iniciar un ejecutable externo.
 
-Durante el módulo estudiaremos estas diferencias.
+Por ejemplo, `cd` suele ser un comando interno porque necesita modificar el directorio actual del propio Shell.
 
-### Conceptos fundamentales
+En cambio, herramientas como Git normalmente se ejecutan como programas externos.
 
-**Terminal Emulator**
-
-Aplicación que proporciona una interfaz para interactuar con programas de línea de comandos.
-
-**Shell**
-
-Programa que interpreta instrucciones y permite ejecutar comandos.
-
-**Command**
-
-Instrucción que solicitamos ejecutar.
-
-**Executable**
-
-Programa que puede ser ejecutado por el sistema.
-
-**Process**
-
-Instancia de un programa en ejecución.
-
-**Output**
-
-Información producida por un comando o proceso.
-
-**Exit Status**
-
-Valor que comunica cómo terminó una operación.
-
-Comprender estas responsabilidades nos ayudará a diagnosticar errores con mayor precisión.
+Comprender estas diferencias nos permitirá entender mejor los errores y el comportamiento de nuestras herramientas.
 
 ---
 
-## 💻 Command-Line Interface (CLI)
+## 5. Terminal vs Shell vs CLI
 
-Una **Command-Line Interface** es una interfaz que permite interactuar con software mediante instrucciones escritas.
-
-Por ejemplo:
-
-```bash
-git status
-```
-
-En lugar de navegar por una interfaz gráfica, solicitamos una operación mediante texto.
-
-### CLI vs GUI
-
-| Característica | CLI | GUI |
-|---|---|---|
-| Interacción | Comandos | Elementos gráficos |
-| Automatización | Habitualmente sencilla de integrar en Scripts | Depende de la aplicación |
-| Repetibilidad | Alta cuando los comandos están bien definidos | Depende del flujo |
-| Descubrimiento visual | Menor | Generalmente mayor |
-| Trabajo remoto | Muy habitual | También posible |
-| Uso profesional | Desarrollo, servidores, automatización | Desarrollo, diseño, administración |
-
-No debemos considerar que CLI es siempre superior a GUI.
-
-Ambas interfaces tienen responsabilidades y ventajas diferentes.
-
-Un ingeniero profesional debe comprender cuándo utilizar cada una.
-
----
-
-## 🖥️ Terminal vs Shell
-
-Esta será una de las primeras distinciones que estudiaremos.
-
-Aunque solemos utilizar ambos términos como si fueran equivalentes, representan conceptos diferentes.
+Aunque estos conceptos están relacionados, tienen responsabilidades distintas.
 
 ### Terminal
 
-Proporciona la interfaz donde interactuamos con programas de línea de comandos.
+Es la aplicación o interfaz mediante la cual interactuamos con programas de línea de comandos.
 
 Ejemplos:
 
@@ -314,7 +210,7 @@ Ejemplos:
 
 ### Shell
 
-Interpreta comandos y proporciona funcionalidades para trabajar con el sistema.
+Es el programa que interpreta nuestras instrucciones y proporciona funcionalidades para ejecutar comandos.
 
 Ejemplos:
 
@@ -323,7 +219,25 @@ Ejemplos:
 - PowerShell.
 - Fish.
 
-### Modelo
+### CLI
+
+Es una interfaz de línea de comandos ofrecida por una herramienta.
+
+Ejemplos:
+
+```bash
+git status
+```
+
+```bash
+node --version
+```
+
+```bash
+npm --version
+```
+
+### Relación
 
 ```text
 Terminal Application
@@ -332,1014 +246,772 @@ Terminal Application
 Shell Session
         │
         ▼
-Commands
+CLI Commands
         │
         ▼
-Operating System
+Tools / Operating System
 ```
 
-Podemos utilizar diferentes Shells dentro de una misma aplicación de Terminal.
+Una misma aplicación de Terminal puede utilizar diferentes Shells.
 
-Y un mismo Shell puede ejecutarse desde diferentes aplicaciones.
+Asimismo, un Shell puede ejecutarse dentro de distintas aplicaciones de Terminal.
 
-**Terminal y Shell son componentes relacionados, pero no equivalentes.**
+**Terminal, Shell y CLI no son sinónimos.**
 
 ---
 
-## 🐚 ¿Por qué existen diferentes Shells?
+## 6. ¿Qué Shell aprenderemos?
 
-Los Shells evolucionaron para ofrecer distintas experiencias, funcionalidades y modelos de automatización.
+Nos enfocaremos principalmente en los Shells más relevantes para nuestro entorno profesional.
 
-Durante el módulo estudiaremos especialmente tres.
-
-### Bash
-
-Muy utilizado en sistemas Unix-like, servidores y automatización.
-
-### Zsh
-
-Shell habitual en macOS moderno, con funcionalidades interactivas y posibilidades de personalización.
-
-### PowerShell
-
-Shell y plataforma de automatización orientada a objetos, especialmente relevante en Windows y disponible también en otros sistemas.
-
-### Comparación inicial
-
-| Característica | Bash | Zsh | PowerShell |
-|---|---|---|---|
-| Uso habitual | Linux, servidores, Scripts | macOS, uso interactivo | Windows, administración, automatización |
-| Pipeline principal | Texto/bytes | Texto/bytes | Objetos entre comandos PowerShell |
-| Sintaxis | Familia Bourne | Familia Bourne | Sintaxis propia |
-| Scripting | Sí | Sí | Sí |
-| Multiplataforma | Sí | Sí | Sí, según disponibilidad |
-
-No estudiaremos los tres con idéntica profundidad desde el primer día.
-
-Aprenderemos primero los conceptos compartidos y después sus diferencias relevantes.
-
----
-
-## 📂 File System Navigation
-
-Una de las primeras habilidades prácticas será navegar por el sistema de archivos.
-
-Necesitamos comprender conceptos como:
-
-- File.
-- Directory.
-- Root Directory.
-- Home Directory.
-- Current Working Directory.
-- Absolute Path.
-- Relative Path.
-- Parent Directory.
-- Hidden Files.
-
-### Ejemplo conceptual
-
-```text
-home/
-└── developer/
-    ├── projects/
-    │   ├── frontend-app/
-    │   └── backend-api/
-    │
-    └── documents/
-```
-
-Si estamos dentro de:
-
-```text
-/home/developer/projects/frontend-app
-```
-
-Podemos necesitar:
-
-- Identificar nuestra ubicación.
-- Regresar al directorio padre.
-- Entrar en otro proyecto.
-- Consultar archivos.
-- Buscar una configuración.
-
-Aprenderemos a hacerlo de forma consciente y segura.
-
-También estudiaremos diferencias entre rutas Unix-like y Windows.
-
----
-
-## 📄 File and Directory Operations
-
-Una vez comprendamos cómo navegar, aprenderemos a trabajar con archivos y directorios.
-
-Entre las operaciones fundamentales encontramos:
-
-```text
-File Operations
-│
-├── Create
-├── Read
-├── Inspect
-├── Copy
-├── Move
-├── Rename
-├── Search
-└── Delete
-```
-
-No todas las operaciones tienen el mismo riesgo.
-
-Consultar un archivo suele ser una operación de lectura.
-
-Eliminarlo puede producir pérdida de información.
-
-Por eso clasificaremos los comandos según su impacto.
-
-### Niveles de riesgo
-
-| Tipo | Ejemplo conceptual | Riesgo |
+| Shell | Uso habitual | Característica principal |
 |---|---|---|
-| Read-only | Consultar archivos | Bajo |
-| Create | Crear un archivo | Generalmente bajo |
-| Modify | Cambiar contenido | Variable |
-| Move | Mover o renombrar | Variable |
-| Delete | Eliminar | Potencialmente alto |
-| Privileged | Modificar recursos protegidos | Alto |
-
-Antes de ejecutar operaciones destructivas, aprenderemos a verificar rutas, alcance y consecuencias.
-
----
-
-## ⌨️ Commands, Arguments and Options
-
-Un comando puede estar compuesto por diferentes elementos.
-
-Ejemplo:
-
-```bash
-git log --oneline
-```
-
-Podemos distinguir:
-
-```text
-git log --oneline
-│   │       │
-│   │       └── Option
-│   │
-│   └────────── Subcommand
-│
-└────────────── Program
-```
-
-También encontraremos:
-
-- Positional Arguments.
-- Short Options.
-- Long Options.
-- Flags.
-- Subcommands.
-
-No todas las herramientas siguen exactamente las mismas convenciones.
-
-Aprenderemos a consultar documentación y descubrir cómo se utiliza un comando sin depender exclusivamente de tutoriales.
-
----
-
-## 🔎 Command Discovery and Help
-
-Un desarrollador no necesita memorizar todos los comandos disponibles.
-
-Necesita saber cómo descubrirlos.
-
-Estudiaremos mecanismos como:
-
-```bash
-command --help
-```
-
-Y, cuando corresponda:
-
-```bash
-man command
-```
-
-También aprenderemos a distinguir:
-
-- Comandos internos.
-- Alias.
-- Funciones.
-- Ejecutables externos.
-
-Y a investigar:
-
-- Qué comando se ejecutará.
-- Dónde está localizado.
-- Qué argumentos acepta.
-- Qué efectos puede producir.
-
-La disponibilidad de estos mecanismos depende del Shell y del sistema operativo.
-
-**Saber consultar documentación es más importante que memorizar una lista interminable de comandos.**
-
----
-
-## 🔀 Standard Streams, Pipes and Redirections
-
-Una de las capacidades más importantes de la línea de comandos es combinar programas.
-
-Para comprenderla, primero necesitamos conocer los flujos estándar.
-
-### Standard Streams
-
-```text
-              Process
-             /   |   \
-            /    |    \
-           ▼     ▼     ▼
-         stdin stdout stderr
-```
-
-Estos flujos representan canales de entrada y salida de los procesos.
-
-Habitualmente se identifican como:
-
-| Stream | Descriptor | Propósito |
-|---|---|---|
-| Standard Input | `0` | Entrada |
-| Standard Output | `1` | Salida normal |
-| Standard Error | `2` | Salida de errores |
-
-Esta representación corresponde al modelo habitual de sistemas Unix-like; PowerShell también ofrece un sistema de flujos con características propias.
-
-### Pipes
-
-Permiten conectar la salida de una operación con la entrada de otra.
-
-```text
-Command A
-    │
-    ▼
-  Output
-    │
-    ▼
-   Pipe
-    │
-    ▼
-Command B
-```
-
-### Redirections
-
-Permiten controlar hacia dónde se dirige la entrada o salida.
-
-Estudiaremos conceptos como:
-
-- Output Redirection.
-- Append.
-- Input Redirection.
-- Error Redirection.
-- Pipes.
-
-Comprenderemos también por qué Bash y PowerShell no manejan sus Pipelines exactamente de la misma manera.
-
----
-
-## 🌍 Variables and Environment
-
-En el módulo anterior conocimos el papel general de las Environment Variables.
-
-Ahora estudiaremos cómo funcionan dentro de una sesión de Shell.
-
-### Shell Variables
-
-Valores administrados por el Shell.
-
-### Environment Variables
-
-Valores que forman parte del entorno de un proceso y pueden heredarse por procesos hijos.
-
-### Ejemplo conceptual
-
-```text
-Shell Process
-│
-├── Shell Variables
-│
-├── Environment Variables
-│
-└── Child Process
-    └── Inherited Environment
-```
-
-También profundizaremos en:
-
-- Variable Assignment.
-- Export.
-- Variable Expansion.
-- Quoting.
-- Scope.
-- PATH.
-- Temporary Configuration.
-
-Comprender estas diferencias será especialmente útil al trabajar con Node.js, Scripts y herramientas de desarrollo.
-
----
-
-## ⚙️ Processes and Exit Codes
-
-Cuando ejecutamos un programa externo, el sistema operativo puede crear un proceso para realizar la operación.
-
-Necesitamos comprender:
-
-- Process.
-- Process ID (PID).
-- Foreground.
-- Background.
-- Signals.
-- Exit Status.
-- Job Control.
-
-### Ejemplo conceptual
-
-```text
-Shell
- │
- ├── Process A
- │
- ├── Process B
- │
- └── Process C
-```
-
-También aprenderemos a reconocer códigos de salida.
-
-Por convención, en muchos entornos:
-
-```text
-Exit Code 0
-    │
-    └── Success
-```
-
-```text
-Non-zero Exit Code
-    │
-    └── Failure or Special Status
-```
-
-El significado exacto de los códigos distintos de cero depende del programa.
-
-Este conocimiento será fundamental cuando estudiemos automatización y CI.
-
----
-
-## 🔐 Permissions and Safe Execution
-
-La terminal puede permitirnos ejecutar operaciones que modifican archivos, procesos y configuraciones del sistema.
-
-Por eso necesitamos comprender los permisos.
-
-Estudiaremos:
-
-- File Ownership.
-- Users and Groups.
-- Read Permission.
-- Write Permission.
-- Execute Permission.
-- Privileged Execution.
-- `sudo` y sus riesgos.
-- Diferencias relevantes con Windows.
-
-### Modelo conceptual
-
-```text
-User
-  │
-  ▼
-Requested Operation
-  │
-  ▼
-Permission Check
-  │
-  ├── Allowed
-  │
-  └── Denied
-```
-
-No aprenderemos a resolver errores de permisos utilizando privilegios elevados indiscriminadamente.
-
-Primero identificaremos qué operación queremos realizar y qué permisos necesita.
-
----
-
-## 🧾 Shell Scripting Fundamentals
-
-Una vez dominemos los comandos individuales, comenzaremos a combinarlos.
-
-Un **Shell Script** es un archivo que contiene instrucciones interpretadas por un Shell.
-
-### Ejemplo sencillo en Bash
-
-```bash
-#!/usr/bin/env bash
-
-echo "Starting validation..."
-
-git --version
-
-echo "Validation finished."
-```
-
-Este Script únicamente muestra mensajes y consulta una versión.
-
-Posteriormente aprenderemos conceptos como:
-
-- Shebang.
-- Variables.
-- Arguments.
-- Conditions.
-- Loops.
-- Functions.
-- Exit Codes.
-- Error Handling.
-- Quoting.
-- Script Execution.
-
-### ¿Por qué aprender Scripting?
-
-Porque nos permite transformar operaciones repetitivas en procedimientos reutilizables.
-
-```text
-Manual Commands
-       │
-       ▼
-Repeated Workflow
-       │
-       ▼
-Shell Script
-       │
-       ▼
-Repeatable Execution
-```
-
-Nuestro objetivo no será construir grandes aplicaciones en Bash o PowerShell.
-
-Aprenderemos los fundamentos necesarios para crear automatizaciones pequeñas, seguras y mantenibles.
-
----
-
-## 🛠️ Practical Developer Workflows
-
-A lo largo del módulo relacionaremos los conceptos con tareas habituales de ingeniería.
-
-Por ejemplo:
-
-- Identificar el directorio de un proyecto.
-- Buscar archivos de configuración.
-- Consultar el estado de Git.
-- Inspeccionar variables específicas.
-- Verificar qué ejecutable se está utilizando.
-- Detectar un proceso que ocupa un puerto.
-- Leer registros de errores.
-- Combinar comandos.
-- Ejecutar comprobaciones repetitivas.
-- Crear Scripts de diagnóstico.
-
-### Modelo
-
-```text
-Developer Task
-      │
-      ▼
-Identify Required Operations
-      │
-      ▼
-Choose Commands
-      │
-      ▼
-Understand Side Effects
-      │
-      ▼
-Execute
-      │
-      ▼
-Verify Results
-```
-
-La prioridad será comprender cada operación antes de automatizarla.
-
----
-
-## 🧭 Diferencias entre sistemas operativos
-
-Los conceptos fundamentales se aplican a diferentes plataformas, pero las herramientas concretas pueden variar.
-
-### macOS
-
-Trabajaremos principalmente con conceptos de Shells Unix-like, especialmente Zsh y Bash.
-
-### Linux
-
-Estudiaremos comandos habituales de entornos Unix-like, prestando atención a las diferencias entre distribuciones y herramientas disponibles.
-
-### Windows
-
-Analizaremos PowerShell y las diferencias con Bash, Git Bash y WSL.
+| Bash | Linux, servidores, automatización | Scripting y comandos Unix-like |
+| Zsh | macOS y entornos Unix-like | Experiencia interactiva y personalización |
+| PowerShell | Windows y automatización multiplataforma | Pipeline de objetos y administración |
+| Git Bash | Windows | Entorno Bash proporcionado por Git for Windows |
 
 ### Nuestra estrategia
 
-```text
-Common Concepts
-      │
-      ▼
-Unix-like Examples
-      │
-      ▼
-PowerShell Equivalents
-      │
-      ▼
-Platform Differences
-      │
-      ▼
-Practical Validation
-```
+Aprenderemos primero los conceptos compartidos.
 
-No asumiremos que un comando Bash funciona automáticamente en PowerShell.
-
-Tampoco que todos los comandos Unix-like están disponibles en cualquier distribución.
-
----
-
-## 🗺️ El mapa que vamos a construir
-
-Organizaremos el módulo en siete áreas principales.
-
-```text
-Terminal and Shell
-│
-├── Concepts
-│   └── Understand command-line execution
-│
-├── Navigation and Files
-│   └── Work with the file system
-│
-├── Commands and Help
-│   └── Understand and discover commands
-│
-├── Streams and Pipelines
-│   └── Connect command-line operations
-│
-├── Shell Environment
-│   └── Understand variables and execution context
-│
-├── Processes and Permissions
-│   └── Control and inspect execution safely
-│
-└── Scripting and Best Practices
-    └── Build repeatable workflows
-```
-
-Cada área tendrá una responsabilidad específica.
-
-Primero comprenderemos los fundamentos.
-
-Después aprenderemos operaciones individuales.
-
-Finalmente combinaremos lo aprendido mediante ejercicios y pequeños Scripts.
-
----
-
-## 📚 Contenido del módulo
-
-Esta será nuestra estructura de aprendizaje:
-
-```text
-02-terminal-and-shell/
-│
-├── README.md
-│
-├── 01-concepts/
-│   ├── 01-what-is-a-terminal.md
-│   ├── 02-what-is-a-shell.md
-│   ├── 03-cli-vs-gui.md
-│   ├── 04-how-commands-work.md
-│   └── 05-shell-types.md
-│
-├── 02-navigation-and-files/
-│   ├── 01-file-system-navigation.md
-│   ├── 02-paths-and-directories.md
-│   ├── 03-file-and-directory-operations.md
-│   ├── 04-reading-and-searching-files.md
-│   └── 05-safe-file-operations.md
-│
-├── 03-commands-and-help/
-│   ├── 01-command-anatomy.md
-│   ├── 02-arguments-and-options.md
-│   ├── 03-command-discovery.md
-│   └── 04-help-and-man-pages.md
-│
-├── 04-streams-and-pipelines/
-│   ├── 01-standard-streams.md
-│   ├── 02-pipes.md
-│   ├── 03-redirections.md
-│   └── 04-command-composition.md
-│
-├── 05-shell-environment/
-│   ├── 01-shell-variables.md
-│   ├── 02-environment-variables.md
-│   ├── 03-path-and-command-resolution.md
-│   ├── 04-quoting-and-expansion.md
-│   └── 05-shell-sessions.md
-│
-├── 06-processes-and-permissions/
-│   ├── 01-processes-and-pids.md
-│   ├── 02-foreground-and-background.md
-│   ├── 03-exit-codes-and-signals.md
-│   ├── 04-file-permissions.md
-│   └── 05-safe-process-management.md
-│
-└── 07-scripting-and-best-practices/
-    ├── 01-introduction-to-shell-scripting.md
-    ├── 02-script-structure-and-execution.md
-    ├── 03-variables-conditions-and-loops.md
-    ├── 04-functions-and-error-handling.md
-    ├── 05-practical-developer-scripts.md
-    ├── 06-terminal-productivity.md
-    └── 07-common-terminal-issues.md
-```
-
-Esta estructura contiene **35 documentos temáticos y un README principal**.
-
-Los nombres de los archivos estarán en inglés y el contenido explicativo en español.
-
-### ¿Por qué esta separación?
-
-Porque necesitamos distinguir diferentes responsabilidades:
-
-**Concepts**
-
-Comprender qué estamos utilizando y cómo funciona.
-
-**Navigation and Files**
-
-Interactuar con el sistema de archivos.
-
-**Commands and Help**
-
-Comprender la estructura de los comandos y aprender a descubrir su documentación.
-
-**Streams and Pipelines**
-
-Combinar operaciones y gestionar entradas y salidas.
-
-**Shell Environment**
-
-Comprender variables, sesiones y resolución de ejecutables.
-
-**Processes and Permissions**
-
-Inspeccionar la ejecución y actuar con seguridad.
-
-**Scripting and Best Practices**
-
-Transformar operaciones conocidas en flujos reutilizables.
-
-No necesitamos estudiar todas las áreas simultáneamente.
-
-Seguiremos el orden establecido.
-
----
-
-## 🔄 Progresión del módulo
-
-Nuestro recorrido conceptual será:
-
-```text
-What Is a Terminal?
-         ↓
-What Is a Shell?
-         ↓
-CLI and Command Execution
-         ↓
-File System Navigation
-         ↓
-File Operations
-         ↓
-Command Anatomy
-         ↓
-Help and Discovery
-         ↓
-Standard Streams
-         ↓
-Pipes and Redirections
-         ↓
-Shell Variables and Environment
-         ↓
-Processes and Permissions
-         ↓
-Shell Scripting
-         ↓
-Practical Workflows
-         ↓
-Professional Best Practices
-```
-
-Esta progresión tiene una razón.
-
-No tiene sentido comenzar creando Scripts complejos si todavía no comprendemos qué hacen los comandos que contienen.
-
-Tampoco conviene aprender Pipes sin conocer previamente Standard Input y Standard Output.
-
-**Cada etapa debe construir sobre los conocimientos anteriores.**
-
----
-
-## 🧪 Cómo practicaremos
-
-Este módulo será más práctico que `01-development-environment`.
-
-Trabajaremos con ejercicios pequeños y progresivos.
-
-### Nivel 1 — Observation
-
-Aprenderemos a consultar información sin modificar el sistema.
-
-Ejemplos:
-
-- Identificar el directorio actual.
-- Listar archivos.
-- Consultar versiones.
-- Identificar ejecutables.
-- Leer ayuda.
-
-### Nivel 2 — Controlled Operations
-
-Realizaremos operaciones dentro de directorios de práctica.
-
-Ejemplos:
-
-- Crear archivos.
-- Crear directorios.
-- Copiar archivos.
-- Mover archivos.
-- Renombrar archivos.
-
-### Nivel 3 — Command Composition
-
-Combinaremos operaciones.
-
-Ejemplos:
-
-- Filtrar información.
-- Redirigir resultados.
-- Buscar archivos.
-- Procesar salidas.
-
-### Nivel 4 — Scripting
-
-Construiremos Scripts pequeños.
-
-Ejemplos:
-
-- Verificar herramientas.
-- Validar directorios.
-- Consultar información del entorno.
-- Ejecutar comprobaciones repetitivas.
-
-### Nivel 5 — Troubleshooting
-
-Resolveremos problemas simulados o controlados.
-
-Ejemplos:
-
-- Command not found.
-- Permission denied.
-- Incorrect path.
-- Unexpected exit code.
-- Port already in use.
-- Script execution failure.
-
-### Regla de seguridad
-
-Antes de utilizar un comando que modifica o elimina información, debemos comprender:
-
-1. Qué operación realizará.
-2. Sobre qué archivos o procesos actuará.
-3. Qué permisos necesita.
-4. Qué efectos secundarios puede producir.
-5. Cómo verificaremos el resultado.
-
-Los experimentos que necesiten mayor profundidad podrán desarrollarse posteriormente dentro de `labs/`, sin alterar la estructura de este módulo.
-
----
-
-## 🧰 Herramientas que utilizaremos
-
-No necesitaremos instalar todas las herramientas desde el primer documento.
-
-Trabajaremos con las disponibles en nuestro sistema y aprenderemos a identificar cuándo necesitamos una adicional.
-
-### macOS / Linux
-
-Podremos encontrar utilidades como:
-
-```text
-pwd
-ls
-cd
-mkdir
-cp
-mv
-cat
-grep
-find
-ps
-```
-
-### Windows / PowerShell
-
-Podremos encontrar comandos como:
-
-```text
-Get-Location
-Get-ChildItem
-Set-Location
-New-Item
-Copy-Item
-Move-Item
-Get-Content
-Get-Process
-```
-
-Estas listas son ejemplos iniciales.
-
-Cada comando tendrá su explicación dentro del documento correspondiente.
-
-**No instalaremos herramientas únicamente por aparecer mencionadas en el README.**
-
----
-
-## 🔗 Relación con los siguientes módulos
-
-Terminal and Shell es una base transversal para todo nuestro Developer Tooling Mastery.
-
-```text
-02 — Terminal and Shell
-           │
-           ├── 03 — Editor and Workspace
-           │
-           ├── 04 — Runtime Management
-           │
-           ├── 05 — Package Managers
-           │
-           ├── 11 — Build Tools
-           │
-           ├── 13 — Git Hooks
-           │
-           ├── 14 — CI and Automation
-           │
-           └── 17 — Monorepo Tooling
-```
+Después identificaremos las diferencias necesarias entre plataformas.
 
 Por ejemplo:
 
-| Módulo | Cómo utilizaremos Terminal and Shell |
-|---|---|
-| 03 — Editor and Workspace | Terminal integrado y comandos desde el editor |
-| 04 — Runtime Management | Verificar y seleccionar versiones |
-| 05 — Package Managers | Instalar dependencias y ejecutar Scripts |
-| 11 — Build Tools | Ejecutar compilaciones |
-| 13 — Git Hooks | Comprender Scripts y procesos automatizados |
-| 14 — CI and Automation | Ejecutar operaciones reproducibles |
-| 17 — Monorepo Tooling | Ejecutar comandos sobre múltiples proyectos |
-| 18 — Nx Basics | Inspeccionar y ejecutar tareas del Workspace |
+**Bash / Zsh:**
 
-Comprender la línea de comandos facilitará enormemente el aprendizaje de estas herramientas.
-
----
-
-## ⚠️ Qué NO haremos todavía
-
-Para mantener una progresión coherente, este módulo no profundizará en:
-
-```text
-Node.js Runtime Internals
-nvm / mise Configuration
-npm / pnpm / Yarn Internals
-JavaScript Dependency Resolution
-TypeScript Compiler Configuration
-Vite / Rsbuild Configuration
-Advanced Bash Programming
-Advanced PowerShell Administration
-Linux System Administration
-Docker Orchestration
-GitHub Actions Pipelines
-Nx Task Orchestration
-Infrastructure as Code
+```bash
+pwd
 ```
 
-Estos temas pertenecen a otros módulos o áreas de especialización.
+**PowerShell:**
 
-Sí podremos utilizar herramientas como Git o Node.js en ejemplos sencillos cuando ayuden a comprender un concepto.
+```powershell
+Get-Location
+```
 
-Pero evitaremos convertir este módulo en un curso completo de administración de sistemas o DevOps.
+Ambos permiten consultar la ubicación actual, aunque pertenecen a entornos con características diferentes.
+
+No necesitamos dominar todos los Shells simultáneamente.
+
+El objetivo es comprender sus fundamentos y saber adaptarnos al entorno de trabajo.
 
 ---
 
-## 🧠 Comprueba tu modelo mental
+## 7. Metodología de aprendizaje
 
-Al finalizar este módulo deberías poder responder:
+Seguiremos el mismo enfoque utilizado en `01-development-environment`.
+
+```text
+Problem
+   │
+   ▼
+Concept
+   │
+   ▼
+Responsibility
+   │
+   ▼
+Command / Tool
+   │
+   ▼
+Practical Example
+   │
+   ▼
+Validation
+   │
+   ▼
+Professional Usage
+```
+
+### Ejemplo
+
+Antes de aprender:
+
+```bash
+cd ..
+```
+
+Comprenderemos:
+
+- Qué es el Current Working Directory.
+- Qué representa un directorio padre.
+- Qué es una ruta relativa.
+- Por qué el Shell necesita mantener una ubicación actual.
+
+Antes de aprender:
+
+```bash
+echo "Hello" > output.txt
+```
+
+Comprenderemos:
+
+- Qué es Standard Output.
+- Qué es una Redirection.
+- Qué significa sobrescribir un archivo.
+- Qué riesgos puede tener la operación.
+
+Y antes de ejecutar:
+
+```bash
+kill <PID>
+```
+
+Comprenderemos:
+
+- Qué es un Process ID.
+- Qué proceso queremos detener.
+- Qué señal se envía.
+- Qué consecuencias puede tener la operación.
+
+**Primero comprenderemos el mecanismo; después aprenderemos el comando.**
+
+---
+
+## 8. Estructura del módulo
+
+Mantendremos una estructura sencilla de **12 documentos temáticos y un README principal**.
+
+Todos los documentos estarán directamente dentro de `02-terminal-and-shell/`.
+
+```text
+docs/
+└── 02-terminal-and-shell/
+    ├── README.md
+    ├── 01-terminal-vs-shell.md
+    ├── 02-command-line-basics.md
+    ├── 03-file-system-navigation.md
+    ├── 04-absolute-vs-relative-paths.md
+    ├── 05-environment-variables.md
+    ├── 06-path-environment-variable.md
+    ├── 07-shell-configuration-files.md
+    ├── 08-shell-aliases.md
+    ├── 09-processes-and-ports.md
+    ├── 10-command-chaining-and-pipes.md
+    ├── 11-cross-platform-commands.md
+    └── 12-common-terminal-issues.md
+```
+
+No utilizaremos subcarpetas adicionales en este módulo.
+
+Cada documento tendrá una responsabilidad concreta y se apoyará en los conocimientos anteriores.
+
+---
+
+## 9. Roadmap de contenidos
+
+### 01 — [Terminal vs Shell](./01-terminal-vs-shell.md)
+
+**Objetivo:** comprender la diferencia entre Terminal, Shell y CLI.
+
+Estudiaremos:
+
+- Qué es un Terminal.
+- Qué es un Terminal Emulator.
+- Qué es un Shell.
+- Qué es una CLI.
+- Cómo interactúan.
+- Bash, Zsh y PowerShell.
+- Qué ocurre cuando ejecutamos un comando.
+
+**Resultado esperado:** poder explicar qué componentes intervienen al ejecutar una herramienta desde la terminal.
+
+### 02 — [Command Line Basics](./02-command-line-basics.md)
+
+**Objetivo:** comprender la estructura y ejecución de comandos.
+
+Estudiaremos:
+
+- Command.
+- Executable.
+- Built-in Commands.
+- Arguments.
+- Options.
+- Flags.
+- Subcommands.
+- Command History.
+- Autocompletion.
+- Help.
+- Manual Pages.
+- Exit Codes básicos.
+
+**Resultado esperado:** poder interpretar un comando y consultar su documentación.
+
+### 03 — [File System Navigation](./03-file-system-navigation.md)
+
+**Objetivo:** aprender a navegar e inspeccionar el sistema de archivos.
+
+Estudiaremos:
+
+- File System.
+- Files.
+- Directories.
+- Root Directory.
+- Home Directory.
+- Current Working Directory.
+- Navegación.
+- Listado de archivos.
+- Operaciones básicas sobre archivos y directorios.
+- Inspección segura.
+
+**Resultado esperado:** desplazarte por un proyecto y trabajar con sus archivos desde la terminal.
+
+### 04 — [Absolute vs Relative Paths](./04-absolute-vs-relative-paths.md)
+
+**Objetivo:** comprender cómo funcionan las rutas.
+
+Estudiaremos:
+
+- Absolute Paths.
+- Relative Paths.
+- Current Directory.
+- Parent Directory.
+- Home Directory.
+- Separadores de rutas.
+- Rutas en macOS y Linux.
+- Rutas en Windows.
+- Espacios y caracteres especiales.
+- Errores frecuentes de rutas.
+
+**Resultado esperado:** identificar correctamente la ubicación de archivos y evitar operaciones sobre rutas equivocadas.
+
+### 05 — [Environment Variables](./05-environment-variables.md)
+
+**Objetivo:** comprender cómo los procesos reciben configuración desde su entorno.
+
+Estudiaremos:
+
+- Variables.
+- Shell Variables.
+- Environment Variables.
+- Scope.
+- Export.
+- Process Inheritance.
+- Variables temporales.
+- Variables persistentes.
+- Seguridad y secretos.
+- Diferencias entre Shells.
+
+**Resultado esperado:** comprender cómo consultar, definir y utilizar variables sin exponer información sensible.
+
+### 06 — [PATH Environment Variable](./06-path-environment-variable.md)
+
+**Objetivo:** comprender cómo el Shell localiza los ejecutables.
+
+Estudiaremos:
+
+- Qué es `PATH`.
+- Command Resolution.
+- Orden de búsqueda.
+- Ejecutables globales.
+- Instalaciones duplicadas.
+- Conflictos de versiones.
+- `command -v`.
+- `type`.
+- `Get-Command`.
+- Diagnóstico de `command not found`.
+
+**Resultado esperado:** identificar qué ejecutable se está utilizando y por qué.
+
+### 07 — [Shell Configuration Files](./07-shell-configuration-files.md)
+
+**Objetivo:** comprender cómo se configura el comportamiento del Shell.
+
+Estudiaremos:
+
+- Shell Startup.
+- Interactive Shell.
+- Login Shell.
+- `.bashrc`.
+- `.bash_profile`.
+- `.profile`.
+- `.zshrc`.
+- `.zprofile`.
+- PowerShell Profiles.
+- Configuración temporal y persistente.
+- Buenas prácticas de modificación.
+
+**Resultado esperado:** saber dónde se configura un Shell y evitar cambios innecesarios o conflictivos.
+
+### 08 — [Shell Aliases](./08-shell-aliases.md)
+
+**Objetivo:** aprender a simplificar operaciones frecuentes.
+
+Estudiaremos:
+
+- Qué es un Alias.
+- Para qué sirve.
+- Alias temporales.
+- Alias persistentes.
+- Alias vs Functions.
+- Colisiones de nombres.
+- Legibilidad.
+- Portabilidad.
+- Buenas prácticas.
+
+**Resultado esperado:** utilizar Alias sin convertirlos en dependencias ocultas del proyecto.
+
+### 09 — [Processes and Ports](./09-processes-and-ports.md)
+
+**Objetivo:** comprender cómo se ejecutan programas y cómo investigar conflictos de procesos.
+
+Estudiaremos:
+
+- Process.
+- PID.
+- Parent Process.
+- Foreground.
+- Background.
+- Exit Status.
+- Signals.
+- Puertos.
+- Listening Processes.
+- Inspección de procesos.
+- Conflictos de puertos.
+- Detención segura.
+
+**Resultado esperado:** poder investigar situaciones como `Port already in use` sin detener procesos indiscriminadamente.
+
+### 10 — [Command Chaining and Pipes](./10-command-chaining-and-pipes.md)
+
+**Objetivo:** comprender cómo combinar comandos.
+
+Estudiaremos:
+
+- Standard Input.
+- Standard Output.
+- Standard Error.
+- Pipes.
+- Redirections.
+- Command Chaining.
+- `&&`.
+- `||`.
+- `;`.
+- Diferencias entre Pipes de Bash y PowerShell.
+- Composición de comandos.
+- Riesgos de operaciones encadenadas.
+
+**Resultado esperado:** construir operaciones sencillas combinando comandos de forma comprensible y segura.
+
+### 11 — [Cross-Platform Commands](./11-cross-platform-commands.md)
+
+**Objetivo:** aprender a trabajar en macOS, Linux y Windows.
+
+Estudiaremos:
+
+- Comandos Unix-like.
+- Equivalentes de PowerShell.
+- Diferencias de sintaxis.
+- Diferencias de rutas.
+- Variables de entorno.
+- Ejecución de Scripts.
+- Git Bash.
+- WSL.
+- Portabilidad.
+- Buenas prácticas multiplataforma.
+
+**Resultado esperado:** comprender cómo adaptar operaciones habituales al sistema operativo y Shell disponibles.
+
+### 12 — [Common Terminal Issues](./12-common-terminal-issues.md)
+
+**Objetivo:** desarrollar una metodología para diagnosticar problemas de Terminal y Shell.
+
+Estudiaremos:
+
+- Command not found.
+- Permission denied.
+- Incorrect PATH.
+- Wrong Executable Version.
+- Incorrect Working Directory.
+- File not found.
+- Shell Configuration Errors.
+- Environment Variable Issues.
+- Port Already in Use.
+- Script Execution Errors.
+- Windows vs WSL Conflicts.
+- Troubleshooting Methodology.
+
+**Resultado esperado:** investigar errores de forma sistemática antes de modificar configuraciones.
+
+---
+
+## 10. Cómo se relacionan los documentos
+
+Nuestro aprendizaje seguirá esta progresión:
+
+```text
+01 — Terminal vs Shell
+          │
+          ▼
+02 — Command Line Basics
+          │
+          ▼
+03 — File System Navigation
+          │
+          ▼
+04 — Absolute vs Relative Paths
+          │
+          ▼
+05 — Environment Variables
+          │
+          ▼
+06 — PATH Environment Variable
+          │
+          ▼
+07 — Shell Configuration Files
+          │
+          ▼
+08 — Shell Aliases
+          │
+          ▼
+09 — Processes and Ports
+          │
+          ▼
+10 — Command Chaining and Pipes
+          │
+          ▼
+11 — Cross-Platform Commands
+          │
+          ▼
+12 — Common Terminal Issues
+```
+
+Los primeros documentos construyen los fundamentos.
+
+Los documentos intermedios explican el entorno de ejecución.
+
+Los últimos permiten combinar operaciones y diagnosticar problemas.
+
+Esta progresión nos prepara para utilizar herramientas de desarrollo más avanzadas.
+
+---
+
+## 11. Ejercicios prácticos
+
+La práctica será parte de cada documento.
+
+No crearemos archivos adicionales para los ejercicios dentro de este módulo.
+
+### Nivel 1 — Observación
+
+Consultar información sin modificar el sistema.
+
+Ejemplos:
+
+```bash
+pwd
+```
+
+```bash
+git --version
+```
+
+```bash
+node --version
+```
+
+### Nivel 2 — Navegación
+
+Desplazarnos entre directorios y reconocer rutas.
+
+### Nivel 3 — Operaciones controladas
+
+Crear, inspeccionar, copiar y mover archivos dentro de un directorio de práctica.
+
+### Nivel 4 — Diagnóstico
+
+Investigar:
+
+- Ejecutables.
+- Variables.
+- Procesos.
+- Puertos.
+- Errores de configuración.
+
+### Nivel 5 — Composición
+
+Combinar comandos para resolver pequeñas tareas.
+
+### Regla fundamental
+
+Antes de ejecutar una operación que modifica el sistema, debemos conocer:
+
+1. Qué hace.
+2. Sobre qué recurso actúa.
+3. Qué permisos requiere.
+4. Qué riesgos presenta.
+5. Cómo comprobar el resultado.
+
+---
+
+## 12. Buenas prácticas del módulo
+
+Durante nuestro aprendizaje aplicaremos los siguientes principios.
+
+**Understand Before Executing**
+
+No copiar comandos desconocidos sin comprender sus efectos.
+
+**Prefer Read-Only Diagnostics**
+
+Investigar primero mediante operaciones de lectura.
+
+**Use Least Privilege**
+
+No utilizar privilegios de administrador sin necesidad.
+
+**Verify Paths**
+
+Comprobar rutas antes de modificar o eliminar archivos.
+
+**Protect Secrets**
+
+No publicar credenciales ni imprimir variables sensibles innecesariamente.
+
+**Avoid Hidden Dependencies**
+
+No depender de Alias o configuraciones personales para que un proyecto funcione.
+
+**Prefer Explicit Commands**
+
+Utilizar comandos claros y comprensibles.
+
+**Validate Results**
+
+Comprobar el resultado de las operaciones.
+
+**Respect Platform Differences**
+
+No asumir que Bash y PowerShell son equivalentes.
+
+**Document Important Configuration**
+
+Registrar los requisitos del proyecto cuando corresponda.
+
+---
+
+## 13. Qué no estudiaremos en profundidad
+
+Para mantener el módulo enfocado, dejaremos los siguientes temas para otras áreas:
+
+| Tema | Módulo correspondiente |
+|---|---|
+| Configuración avanzada del editor | `03-editor-and-workspace` |
+| nvm, mise y gestión de Node.js | `04-runtime-management` |
+| npm, pnpm y Yarn | `05-package-managers` |
+| Configuración de TypeScript | `10-typescript-tooling` |
+| Vite y Rsbuild | `11-build-tools` |
+| Configuración de entornos de aplicación | `12-environment-configuration` |
+| Git Hooks y calidad de commits | `13-git-hooks-and-commit-quality` |
+| Automatización CI | `14-ci-and-automation` |
+| Monorepos | `16-repository-architectures` y `17-monorepo-tooling` |
+| Nx | `18-nx-basics` |
+
+Tampoco profundizaremos en programación avanzada de Bash o PowerShell.
+
+Aprenderemos las operaciones necesarias para comprender y utilizar profesionalmente las herramientas del ecosistema de desarrollo.
+
+---
+
+## 14. Criterios para completar el módulo
+
+Consideraremos completado `02-terminal-and-shell` cuando puedas realizar las siguientes actividades.
+
+### Fundamentos
+
+- [ ] Explicar Terminal vs Shell.
+- [ ] Diferenciar CLI y ejecutable.
+- [ ] Interpretar argumentos y opciones.
+- [ ] Consultar ayuda.
+
+### Sistema de archivos
+
+- [ ] Identificar el directorio actual.
+- [ ] Navegar entre directorios.
+- [ ] Diferenciar rutas absolutas y relativas.
+- [ ] Inspeccionar archivos.
+- [ ] Realizar operaciones controladas.
+
+### Entorno del Shell
+
+- [ ] Comprender variables de entorno.
+- [ ] Explicar cómo funciona `PATH`.
+- [ ] Identificar archivos de configuración.
+- [ ] Comprender los Alias.
+
+### Ejecución
+
+- [ ] Identificar procesos.
+- [ ] Comprender qué es un puerto.
+- [ ] Interpretar Exit Codes básicos.
+- [ ] Comprender Pipes y Redirections.
+- [ ] Combinar comandos sencillos.
+
+### Compatibilidad y diagnóstico
+
+- [ ] Reconocer diferencias entre Bash y PowerShell.
+- [ ] Diagnosticar `command not found`.
+- [ ] Investigar un conflicto de puertos.
+- [ ] Reconocer problemas de permisos.
+- [ ] Aplicar una metodología de Troubleshooting.
+
+---
+
+## 15. Comprueba tu modelo mental
+
+Antes de avanzar al siguiente módulo deberías poder responder:
 
 1. ¿Qué diferencia existe entre Terminal y Shell?
 2. ¿Qué es una CLI?
-3. ¿Qué ocurre cuando ejecutamos un comando?
-4. ¿Qué diferencias existen entre Bash, Zsh y PowerShell?
-5. ¿Qué es el Current Working Directory?
+3. ¿Qué sucede cuando ejecutamos un comando?
+4. ¿Qué diferencia existe entre un Built-in Command y un ejecutable externo?
+5. ¿Qué es un Current Working Directory?
 6. ¿Qué diferencia existe entre una ruta absoluta y una relativa?
-7. ¿Qué significa `.` y qué significa `..` en una ruta?
-8. ¿Cómo podemos inspeccionar un archivo sin modificarlo?
-9. ¿Qué diferencia existe entre un argumento y una opción?
-10. ¿Cómo descubrimos qué hace un comando?
-11. ¿Qué son Standard Input, Standard Output y Standard Error?
-12. ¿Qué es un Pipe?
-13. ¿Qué es una Redirection?
-14. ¿Qué diferencia existe entre una Shell Variable y una Environment Variable?
-15. ¿Cómo influye `PATH` en la resolución de ejecutables?
-16. ¿Qué es un Process?
-17. ¿Qué es un PID?
-18. ¿Qué representa un Exit Code?
-19. ¿Qué diferencia existe entre ejecutar un proceso en Foreground y Background?
-20. ¿Qué son los permisos de lectura, escritura y ejecución?
-21. ¿Por qué no debemos utilizar privilegios elevados indiscriminadamente?
-22. ¿Qué es un Shell Script?
-23. ¿Por qué son importantes Quoting y Variable Expansion?
-24. ¿Cómo podemos combinar comandos de forma segura?
-25. ¿Qué debemos comprobar antes de ejecutar una operación destructiva?
-26. ¿Cómo investigaríamos un error `command not found`?
-27. ¿Cómo identificaríamos un proceso que utiliza un puerto?
-28. ¿Cómo construiríamos un Script sencillo de diagnóstico?
-29. ¿Qué diferencias debemos considerar entre Bash y PowerShell?
-30. ¿Cómo podemos convertir una operación manual en un procedimiento reproducible?
-
-No necesitamos memorizar todas las respuestas.
-
-Queremos comprender los conceptos y ser capaces de demostrarlos mediante ejemplos prácticos.
+7. ¿Qué representa `..`?
+8. ¿Qué son las Environment Variables?
+9. ¿Qué diferencia existe entre una Shell Variable y una Environment Variable?
+10. ¿Qué es `PATH`?
+11. ¿Cómo encuentra el Shell un ejecutable?
+12. ¿Qué es `.zshrc`?
+13. ¿Qué es `.bashrc`?
+14. ¿Qué es un Alias?
+15. ¿Qué es un Process?
+16. ¿Qué es un PID?
+17. ¿Qué es un puerto?
+18. ¿Qué significa `Port already in use`?
+19. ¿Qué es Standard Output?
+20. ¿Qué es Standard Error?
+21. ¿Qué es un Pipe?
+22. ¿Qué es una Redirection?
+23. ¿Qué diferencia existe entre `&&` y `||` en Bash?
+24. ¿Por qué PowerShell y Bash no son completamente equivalentes?
+25. ¿Cómo investigarías un error `command not found`?
+26. ¿Por qué no debemos utilizar `sudo` indiscriminadamente?
+27. ¿Cómo comprobarías qué versión de Node.js se está ejecutando?
+28. ¿Cómo identificarías qué ejecutable corresponde a un comando?
+29. ¿Por qué debemos verificar las rutas antes de eliminar archivos?
+30. ¿Qué conocimientos de este módulo utilizaremos en Runtime Management?
 
 ---
 
-## 💡 Idea clave
+## 16. Resultado esperado
 
-Terminal and Shell representan una interfaz fundamental entre el desarrollador y el sistema operativo.
+Al completar este módulo, deberíamos pasar de:
 
 ```text
-Developer
-    │
-    ▼
-Terminal
-    │
-    ▼
-Shell
-    │
-    ▼
-Commands
-    │
-    ▼
-Programs and Processes
-    │
-    ▼
-Operating System
+I Copy Commands
+       │
+       ▼
+I Hope They Work
+       │
+       ▼
+I Search for Random Solutions
 ```
 
-Dominar esta interfaz nos permitirá:
+A:
 
-- Trabajar con mayor autonomía.
-- Comprender errores.
-- Investigar el comportamiento de herramientas.
-- Manipular archivos de forma segura.
-- Combinar operaciones.
-- Automatizar tareas.
-- Prepararnos para herramientas más avanzadas.
+```text
+I Understand the Command
+       │
+       ▼
+I Understand the Environment
+       │
+       ▼
+I Execute Safely
+       │
+       ▼
+I Interpret the Result
+       │
+       ▼
+I Diagnose Problems
+```
 
-**Un desarrollador profesional no solamente sabe qué comando ejecutar: comprende qué hace, por qué funciona y cómo verificar su resultado.**
+La terminal dejará de ser una herramienta que utilizamos únicamente siguiendo instrucciones.
+
+Se convertirá en una interfaz que comprendemos y podemos utilizar con autonomía.
 
 ---
 
-## 🚀 Siguiente paso
+## 17. Relación con Runtime Management
 
-Comenzaremos por el primer concepto fundamental:
+El siguiente módulo técnico especialmente importante será:
 
-**¿Qué es exactamente un Terminal?**
+**`04-runtime-management`**
 
-Antes de estudiar Bash, Zsh, PowerShell o aprender comandos, necesitamos comprender qué papel tiene el Terminal dentro de nuestro entorno de desarrollo.
+Allí aprenderemos:
 
-En el siguiente documento aprenderemos:
+- Qué es un Runtime.
+- Qué es Node.js.
+- Por qué existen diferentes versiones.
+- Qué son los Runtime Version Managers.
+- Cómo funcionan nvm y mise.
+- Cómo seleccionar versiones por proyecto.
+- Cómo evitar conflictos entre instalaciones.
+- Cómo preparar entornos reproducibles.
+
+Para estudiar esos temas necesitaremos comprender previamente:
+
+```text
+Terminal
+   │
+   ▼
+Shell
+   │
+   ▼
+Environment Variables
+   │
+   ▼
+PATH
+   │
+   ▼
+Executable Resolution
+   │
+   ▼
+Runtime Version Management
+```
+
+Por eso este módulo es una base fundamental para nuestro aprendizaje posterior.
+
+---
+
+## 18. Idea clave
+
+**Un ingeniero de software no necesita memorizar todos los comandos de una terminal. Necesita comprender cómo funcionan, saber descubrirlos, ejecutarlos de forma segura e interpretar sus resultados.**
+
+Terminal and Shell es una habilidad transversal.
+
+La utilizaremos continuamente en:
+
+- Desarrollo Frontend.
+- Desarrollo Backend.
+- Git y GitHub.
+- Node.js.
+- Package Managers.
+- Build Tools.
+- Testing.
+- DevOps.
+- Cloud.
+- CI/CD.
+- Monorepos.
+
+---
+
+## 19. Siguiente paso
+
+Comenzaremos con el primer documento:
+
+### [01 — Terminal vs Shell](./01-terminal-vs-shell.md)
+
+Aprenderemos desde cero:
 
 - Qué es un Terminal.
-- Por qué existe.
-- Qué diferencia existe entre un Terminal tradicional y un Terminal Emulator.
-- Qué responsabilidad tiene.
-- Qué relación mantiene con el Shell.
-- Qué ejemplos encontramos en macOS, Windows y Linux.
+- Qué es un Shell.
+- Qué es una CLI.
+- Por qué existen.
+- Cómo se relacionan.
+- Qué sucede cuando ejecutamos un comando.
+- Qué diferencias encontramos entre macOS, Windows y Linux.
 
-👉 [What Is a Terminal?](./01-concepts/01-what-is-a-terminal.md)
+**Primero comprenderemos la interfaz. Después aprenderemos a utilizarla.**
